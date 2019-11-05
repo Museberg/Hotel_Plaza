@@ -2,10 +2,10 @@ import java.util.*;
 import java.io.*;
 
 public class Room{
-   int roomID;
-   int beds;
-   boolean internetAccess;
-   double pricePerNight;
+   private int roomID;
+   private int beds;
+   private boolean internetAccess;
+   private double pricePerNight;
    
    // Returns floor number by getting first digit of roomID
    int getFloor(){
