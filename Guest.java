@@ -9,7 +9,7 @@ public class Guest{
    int phoneNumber;
    
    // To write region code on phone number, use '00' instead of '+'
-   public Guest(int guestID, String firstName, string lastName, int phoneNumber){
+   public Guest(int guestID, String firstName, String lastName, int phoneNumber){
       this.guestID = guestID;
       this.firstName = firstName;
       this.lastName = lastName;
