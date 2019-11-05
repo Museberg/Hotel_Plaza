@@ -8,9 +8,9 @@ public class DateHelper{
 
    private static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM yyyy");
 
-   public static boolean isValid(String dateStr) {
+   private static boolean isValid(String dateStr) {
         try {
-            LocalDate.parse(dateStr, formatter);
+            LocalDate retDate = LocalDate.parse(dateStr, formatter);
         } catch (DateTimeParseException e) {
             return false;
         }
@@ -29,6 +29,23 @@ public class DateHelper{
    public static String dateToString(LocalDate date){
       return date.format(formatter);
    }
+   
+   // Asks the user to input a date. Only returns once date in correct format is given
+   public static LocalDate getValidDateFromUser(){
+      Scanner scan = new Scanner(System.in);
+      String date = scan.nextLine();
+      
+      boolean validDate = isValid(date);
+      
+      while(!validDate){
+         System.out.printf("%s does not match with the format dd/mm yyyy! Please try again.%n", date);
+         date = scan.nextLine();
+         validDate = isValid(date);
+      }
+      
+      return parseDate(date);
+   }
+   
     
     
 }

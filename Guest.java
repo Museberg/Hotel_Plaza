@@ -2,17 +2,34 @@ import java.util.*;
 import java.io.*;
 
 public class Guest{
-   private int guestID;
+   private String guestID;
    private String firstName;
    private String lastName;
    private String address;
    private int phoneNumber;
    
    // To write region code on phone number, use '00' instead of '+'
-   public Guest(int guestID, String firstName, String lastName, int phoneNumber){
+   public Guest(String guestID, String firstName, String lastName, String address, int phoneNumber){
       this.guestID = guestID;
       this.firstName = firstName;
       this.lastName = lastName;
       this.phoneNumber = phoneNumber;
    }
+   
+   public String getGuestID(){
+      return this.guestID;
+   }
+   
+   // Returns 'firstName lastName (guestID)'
+   public String getName(){
+      return String.format("%s %s (%s)", this.firstName, this.lastName, this.guestID);
+   }
+   
+   // Presents the user with a list of all the bookings
+   public static void showList(ArrayList<Guest> guests){
+      for(int i = 0; i < guests.size(); i++){
+         System.out.printf("%d - %s%n", i+1, guests.get(i).getName());
+      }
+   }
 }
+

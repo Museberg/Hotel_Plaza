@@ -12,7 +12,7 @@ public class Booking{
    String guestID;
    
    
-   private String dateFormat = "dd/MM yyyy";
+   private String dateFormat = "dd/mm yyyy";
    
    // Dates should be written as dd/MM yyyy
    public Booking(String startDate, String endDate, int roomID, String guestID) throws ParseException{
@@ -29,6 +29,23 @@ public class Booking{
       return String.format("Booking of room %d for guest %s (ID)", roomID, guestID);
    }
    
+   // Presents the user with a list of all the bookings
+   public static void showList(ArrayList<Booking> bookings){
+      for(int i = 0; i < bookings.size(); i++){
+         System.out.printf("%d - %s%n", i+1, bookings.get(i).getName());
+      }
+   }
+   
+   private void setStartDate(LocalDate newStartDate){
+      this.startDate = newStartDate;
+      this.numberOfDays = DateHelper.getDays(this.startDate, this.endDate);
+   }
+
+   private void setEndDate(LocalDate newEndDate){
+      this.endDate = newEndDate;
+      this.numberOfDays = DateHelper.getDays(this.startDate, this.endDate);
+   }
+   
    @Override
    public String toString(){
       return getName() +
@@ -39,15 +56,8 @@ public class Booking{
          "\nGuest ID: " + guestID;
    }
    
-   // Presents the user with a list of all the bookings
-   public static void showList(ArrayList<Booking> bookings){
-      for(int i = 0; i < bookings.size(); i++){
-         System.out.printf("%d - %s%n", i+1, bookings.get(i).getName());
-      }
-   }
-   
    // Lets the user edit a value in a case
-   public void edit(){
+   public void edit(ArrayList<Guest> guests){
       Scanner scanInput = new Scanner(System.in);
       System.out.println("What do you want to edit?\n");
       
@@ -58,29 +68,71 @@ public class Booking{
       
       int option = scanInput.nextInt();
       scanInput.nextLine(); // Eating leftover newline
+      LocalDate newDate;
       switch(option){
-         case 1:
+         case 1: // New start date
             System.out.printf("Current date is %s. What do you want to change it to? Write it as %s%n",
                DateHelper.dateToString(startDate), dateFormat);
-            // Getting new date from user and checking it is given in the correct format
-            String newDateString = scanInput.nextLine();
-            LocalDate newDate = this.startDate;
-            boolean validDate = DateHelper.isValid(newDateString);
-            
-            while(!validDate){
-               System.out.printf("Invalid date. Please write it as %s%n", dateFormat);
-               
-               newDateString = scanInput.nextLine();
-               validDate = DateHelper.isValid(newDateString);
-               if(validDate){
-                  newDate = DateHelper.parseDate(newDateString);
-                  validDate = newDate.isBefore(this.endDate);
-               }
+            // Getting new date from user
+            newDate = DateHelper.getValidDateFromUser();
+            // If new date is after end date (imposssible) ask again
+            while(!newDate.isBefore(endDate)){
+               System.out.printf("The new start date (%s) must be before the end date (%s). Please try again.%n",
+                  DateHelper.dateToString(newDate), DateHelper.dateToString(endDate));
+               newDate = DateHelper.getValidDateFromUser();
             }
+            // Valid date has now been found
+            setStartDate(newDate);
+            System.out.printf("The start date has been updated to %s%n", DateHelper.dateToString(startDate));   
             
-            // If first date entered was valid, it has not been parsed yet
-            this.startDate = DateHelper.parseDate(newDateString);   
+         case 2: // New end date
+            System.out.printf("Current date is %s. What do you want to change it to? Write it as %s%n",
+               DateHelper.dateToString(endDate), dateFormat);
+            // Getting new date from user
+            newDate = DateHelper.getValidDateFromUser();
+            // If new date is before start date (impossible) ask again
+            while(newDate.isBefore(endDate)){
+               System.out.printf("The new end date (%s) must be after the start date (%s). Please try again.%n",
+                  DateHelper.dateToString(newDate), DateHelper.dateToString(endDate));
+               newDate = DateHelper.getValidDateFromUser();
+            }
+            // Valid date has now been found
+            setEndDate(newDate);
+            System.out.printf("The end date has been updated to %s%n", DateHelper.dateToString(endDate));
+            
+         case 3: // Room ID
+            System.out.printf("Please enter in a new room ID. Must be three digits long where the first digit represents the floor%n");
+            // Getting input and validating
+            int newID = getIntFromUser();
+            
+            while(String.valueOf(newID).length() != 3){
+               System.out.printf("The number %d is not 3 digits long. Please try again.%n", newID);
+               newID = getIntFromUser();
+            }
+            this.roomID = newID;
+            System.out.printf("The room ID has been updated to %d%n", this.roomID);
+            
+         case 4: // Guest ID   
+            System.out.printf("Guest ID (%s) can only be changed to a guest ID currently assigned to a customer. Please select a customer.%n", this.roomID);
+            Guest.showList(guests);
+            option = scanInput.nextInt() - 1;
+            scanInput.nextLine();
+            if(option != -1 && option < guests.size()){ // If valid option chosen
+               this.guestID = guests.get(option).getGuestID();
+            }
+            System.out.printf("Guest ID for has been updated to %s%n", this.guestID);
+         }
+   }
+   
+   private int getIntFromUser(){
+      Scanner scanInput = new Scanner(System.in);
+      while(!scanInput.hasNextInt()){
+         System.out.printf("The input '%s' is not a number. Please try again.%n", scanInput.nextLine());
+         continue;
       }
+      int retVal = scanInput.nextInt();
+      scanInput.nextLine(); // Eating leftover newline
+      return retVal;
    }
 
 }

@@ -13,7 +13,10 @@ public class PlazaHotel{
       // Creating a booking
       Booking newBooking = new Booking("05/05 1997", "06/05 1997", 233, "Guest 1");
       bookings.add(newBooking);
-      System.out.println(newBooking);
+
+      // Creating a new guest
+      Guest newGuest = new Guest("Guest 1", "Rasmus", "Falk-Jensen", "Frederiksberg Bredegade 13B", 31953678);
+      guests.add(newGuest);
       
       int option = -1;
       while(option != 5){

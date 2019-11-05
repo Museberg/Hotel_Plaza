@@ -27,7 +27,7 @@ public class Menu{
    public static void menuActions(int option, ArrayList<Room> rooms, ArrayList<Guest> guests, ArrayList<Staff> staff, ArrayList<Booking> bookings){
       switch(option){
          case 1: // Bookings
-            bookingsMenu(bookings); // New menu with more options
+            bookingsMenu(bookings, guests); // New menu with more options
             break;
          case 2: // Rooms
             roomMenu(rooms);
@@ -45,7 +45,7 @@ public class Menu{
    }
    
    // All actions on bookings are handeled (called from) here
-   private static void bookingsMenu(ArrayList<Booking> bookings){
+   private static void bookingsMenu(ArrayList<Booking> bookings, ArrayList<Guest> guests){
       Scanner scanInput = new Scanner(System.in);
       System.out.println("Bookings selected. What do you want to do?");
       
@@ -68,10 +68,16 @@ public class Menu{
          case 2: // Create booking
             break;
          case 3: // Edit booking
-            System.out.println("What booking do you want to edit?\n");
-            Booking.showList(bookings);
-            option = scanInput.nextInt();
-            bookings.get(option-1).edit();  
+            System.out.println("What booking do you want to edit?");
+            Booking.showList(bookings); // Showing user list of bookings to select from
+            option = scanInput.nextInt() - 1; // Getting user input
+            if(option != -1 && option < bookings.size()){
+               bookings.get(option).edit(guests); // Guests is used to select guest ID
+               break;
+            }
+            System.out.println("Invalid input! Returning to main menu.");
+            
+              
       }
    }
    
