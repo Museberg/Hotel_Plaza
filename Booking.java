@@ -12,21 +12,21 @@ public class Booking{
    String guestID;
    
    
-   private String dateFormat = "dd/mm yyyy";
+   private static String dateFormat = "dd/mm yyyy";
    
    // Dates should be written as dd/MM yyyy
-   public Booking(String startDate, String endDate, int roomID, String guestID) throws ParseException{
+   public Booking(LocalDate startDate, LocalDate endDate, int roomID, String guestID) throws ParseException{
       
       
-      this.startDate = DateHelper.parseDate(startDate);
-      this.endDate = DateHelper.parseDate(endDate);
+      this.startDate = startDate;
+      this.endDate = endDate;
       this.numberOfDays = DateHelper.getDays(this.startDate, this.endDate);
       this.roomID = roomID;
       this.guestID = guestID;
    }
    
    public String getName(){
-      return String.format("Booking of room %d for guest %s (ID)", roomID, guestID);
+      return String.format("Booking for guest %s", guestID);
    }
    
    // Presents the user with a list of all the bookings
@@ -56,7 +56,49 @@ public class Booking{
          "\nGuest ID: " + guestID;
    }
    
-   // Lets the user edit a value in a case
+   public String toString(Guest guest){
+      return "\nStart date: " + DateHelper.dateToString(this.startDate) +
+         "\nEnd date: " + DateHelper.dateToString(this.endDate) +
+         "\nRoom is booked for: " + numberOfDays + " days" +
+         "\nRoomID: " + roomID +
+         "\nGuest ID: " + guestID + String.format(" (%s)%n", guest.getName());
+   }
+   
+   public static Booking letUserCreateBooking(ArrayList<Room> rooms, ArrayList<Guest> guests) throws ParseException{
+      Scanner scan = new Scanner(System.in);
+      
+      System.out.printf("What's the start date of the booking? Write as %s%n", dateFormat);
+      LocalDate startDate = DateHelper.getValidDateFromUser();
+      
+      System.out.printf("What's the end date of the booking? Write as %s%n", dateFormat);
+      LocalDate endDate = DateHelper.getValidDateFromUser();
+      while(!startDate.isBefore(endDate)){
+         System.out.printf("Start date (%s) must be before end date (%s)! Please try again.%n",
+            DateHelper.dateToString(startDate), DateHelper.dateToString(endDate));
+         endDate = DateHelper.getValidDateFromUser();
+      }
+      
+      int roomID = -1;
+      System.out.printf("What room should be booked?%n");
+      Room.showList(rooms); // Showing list of rooms to book
+      int option = scan.nextInt() - 1; // Letting user select
+      if(option != -1 && option < rooms.size()){
+         roomID = rooms.get(option).getRoomID();
+      }
+      
+      String guestID = "Invalid Guest";
+      System.out.printf("What guest is booking the room?%n");
+      Guest.showList(guests);
+      option = scan.nextInt() - 1;
+      if(option != -1 && option < guests.size()){
+         guestID = guests.get(option).getGuestID();
+      }
+      Booking newBooking = new Booking(startDate, endDate, roomID, guestID); 
+      System.out.printf("Following booking has now been created:%n%s", newBooking.toString(guests.get(option)));
+      return newBooking;
+   }
+   
+   // Lets the user edit a value in a booking
    public void edit(ArrayList<Guest> guests){
       Scanner scanInput = new Scanner(System.in);
       System.out.println("What do you want to edit?\n");

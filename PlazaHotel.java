@@ -1,6 +1,7 @@
 import java.util.*;
 import java.io.*;
 import java.text.*;
+import java.time.*;
 
 public class PlazaHotel{
    public static void main(String[] args) throws ParseException{
@@ -11,12 +12,18 @@ public class PlazaHotel{
       ArrayList<Booking> bookings = new ArrayList<Booking>();
    
       // Creating a booking
-      Booking newBooking = new Booking("05/05 1997", "06/05 1997", 233, "Guest 1");
+      LocalDate startDate = DateHelper.parseDate("05/05 1997");
+      LocalDate endDate = DateHelper.parseDate("06/05 1997");
+      Booking newBooking = new Booking(startDate, endDate, 233, "G1");
       bookings.add(newBooking);
 
       // Creating a new guest
       Guest newGuest = new Guest("Guest 1", "Rasmus", "Falk-Jensen", "Frederiksberg Bredegade 13B", 31953678);
       guests.add(newGuest);
+      
+      // Creating a new room
+      Room newRoom = new Room(403, 2, true, 1789.95);
+      rooms.add(newRoom);
       
       int option = -1;
       while(option != 5){

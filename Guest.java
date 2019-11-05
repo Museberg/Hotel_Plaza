@@ -20,9 +20,9 @@ public class Guest{
       return this.guestID;
    }
    
-   // Returns 'firstName lastName (guestID)'
+   // Returns 'firstName lastName'
    public String getName(){
-      return String.format("%s %s (%s)", this.firstName, this.lastName, this.guestID);
+      return String.format("%s %s", this.firstName, this.lastName);
    }
    
    // Presents the user with a list of all the bookings

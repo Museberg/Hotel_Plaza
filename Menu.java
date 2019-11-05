@@ -1,5 +1,6 @@
 import java.io.*;
 import java.util.*;
+import java.text.*;
 
 public class Menu{
 
@@ -24,10 +25,10 @@ public class Menu{
       return scanInput.nextInt();
    }
    
-   public static void menuActions(int option, ArrayList<Room> rooms, ArrayList<Guest> guests, ArrayList<Staff> staff, ArrayList<Booking> bookings){
+   public static void menuActions(int option, ArrayList<Room> rooms, ArrayList<Guest> guests, ArrayList<Staff> staff, ArrayList<Booking> bookings) throws ParseException{
       switch(option){
          case 1: // Bookings
-            bookingsMenu(bookings, guests); // New menu with more options
+            bookingsMenu(rooms, guests, bookings); // New menu with more options
             break;
          case 2: // Rooms
             roomMenu(rooms);
@@ -45,7 +46,7 @@ public class Menu{
    }
    
    // All actions on bookings are handeled (called from) here
-   private static void bookingsMenu(ArrayList<Booking> bookings, ArrayList<Guest> guests){
+   private static void bookingsMenu(ArrayList<Room> rooms, ArrayList<Guest> guests, ArrayList<Booking> bookings) throws ParseException{
       Scanner scanInput = new Scanner(System.in);
       System.out.println("Bookings selected. What do you want to do?");
       
@@ -66,6 +67,7 @@ public class Menu{
             System.out.printf("%s%n", bookings.get(option));
          }
          case 2: // Create booking
+            bookings.add(Booking.letUserCreateBooking(rooms, guests));
             break;
          case 3: // Edit booking
             System.out.println("What booking do you want to edit?");
