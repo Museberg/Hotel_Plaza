@@ -66,6 +66,7 @@ public class Menu{
          if(option != -1 && option < bookings.size()){ // When user selects 1, input becomes 0
             System.out.printf("%s%n", bookings.get(option));
          }
+         break;
          case 2: // Create booking
             bookings.add(Booking.letUserCreateBooking(rooms, guests));
             break;
@@ -78,8 +79,7 @@ public class Menu{
                break;
             }
             System.out.println("Invalid input! Returning to main menu.");
-            
-              
+            break;  
       }
    }
    

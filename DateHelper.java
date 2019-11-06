@@ -42,7 +42,6 @@ public class DateHelper{
          date = scan.nextLine();
          validDate = isValid(date);
       }
-      
       return parseDate(date);
    }
    

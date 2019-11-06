@@ -126,7 +126,7 @@ public class Booking{
             // Valid date has now been found
             setStartDate(newDate);
             System.out.printf("The start date has been updated to %s%n", DateHelper.dateToString(startDate));   
-            
+            break;
          case 2: // New end date
             System.out.printf("Current date is %s. What do you want to change it to? Write it as %s%n",
                DateHelper.dateToString(endDate), dateFormat);
@@ -141,7 +141,7 @@ public class Booking{
             // Valid date has now been found
             setEndDate(newDate);
             System.out.printf("The end date has been updated to %s%n", DateHelper.dateToString(endDate));
-            
+            break;
          case 3: // Room ID
             System.out.printf("Please enter in a new room ID. Must be three digits long where the first digit represents the floor%n");
             // Getting input and validating
@@ -153,7 +153,7 @@ public class Booking{
             }
             this.roomID = newID;
             System.out.printf("The room ID has been updated to %d%n", this.roomID);
-            
+            break;
          case 4: // Guest ID   
             System.out.printf("Guest ID (%s) can only be changed to a guest ID currently assigned to a customer. Please select a customer.%n", this.roomID);
             Guest.showList(guests);
@@ -163,6 +163,7 @@ public class Booking{
                this.guestID = guests.get(option).getGuestID();
             }
             System.out.printf("Guest ID for has been updated to %s%n", this.guestID);
+            break;
          }
    }
    
