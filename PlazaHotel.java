@@ -4,7 +4,7 @@ import java.text.*;
 import java.time.*;
 
 public class PlazaHotel{
-   public static void main(String[] args) throws ParseException{
+   public static void main(String[] args) throws ParseException, FileNotFoundException{
    
       ArrayList<Room> rooms = new ArrayList<Room>();
       ArrayList<Guest> guests = new ArrayList<Guest>();
@@ -14,8 +14,10 @@ public class PlazaHotel{
       // Creating a booking
       LocalDate startDate = DateHelper.parseDate("05/05 1997");
       LocalDate endDate = DateHelper.parseDate("06/05 1997");
-      Booking newBooking = new Booking(startDate, endDate, 233, "G1");
-      bookings.add(newBooking);
+      Booking newBooking1 = new Booking(startDate, endDate, 233, "G1");
+      Booking newBooking2 = new Booking(startDate, endDate, 322, "G2");
+      bookings.add(newBooking1);
+      bookings.add(newBooking2);
 
       // Creating a new guest
       Guest newGuest = new Guest("Guest 1", "Rasmus", "Falk-Jensen", "Frederiksberg Bredegade 13B", 31953678);

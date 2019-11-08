@@ -25,9 +25,18 @@ public class Booking{
       this.guestID = guestID;
    }
    
-   public String getName(){
-      return String.format("Booking for guest %s", guestID);
+   public String getBookingInSaveFormat(){
+      return String.format("%s, %s, %d, %s",
+         DateHelper.dateToString(startDate),
+         DateHelper.dateToString(endDate),
+         this.roomID,
+         this.guestID);
    }
+   
+   public String getName(){
+      return String.format("Booking for guest %s", this.guestID);
+   }
+   
    
    // Presents the user with a list of all the bookings
    public static void showList(ArrayList<Booking> bookings){
@@ -79,15 +88,15 @@ public class Booking{
       }
       
       int roomID = -1;
-      System.out.printf("What room should be booked?%n");
+      System.out.printf("Which room should be booked?%n");
       Room.showList(rooms); // Showing list of rooms to book
       int option = scan.nextInt() - 1; // Letting user select
       if(option != -1 && option < rooms.size()){
          roomID = rooms.get(option).getRoomID();
       }
       
-      String guestID = "Invalid Guest";
-      System.out.printf("What guest is booking the room?%n");
+      String guestID = "";
+      System.out.printf("Which guest is booking the room?%n");
       Guest.showList(guests);
       option = scan.nextInt() - 1;
       if(option != -1 && option < guests.size()){

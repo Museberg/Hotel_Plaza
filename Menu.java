@@ -55,17 +55,17 @@ public class Menu{
       System.out.printf("%d to edit a booking%n", 3);
       System.out.printf("%d to delete a booking. This action is permanent%n", 4);
       
-      int input = scanInput.nextInt();
-      scanInput.nextLine(); // Eating newline leftover
+      int input = getOptionFromUser(1, 4);
       int option;
       switch(input){
          case 1: // Show list of bookings - allows user to see more info on single booking
          Booking.showList(bookings);
          System.out.println("Press the corresponding number to see all information about a booking. Press 0 to go back to main menu");
-         option = scanInput.nextInt() - 1;
-         if(option != -1 && option < bookings.size()){ // When user selects 1, input becomes 0
-            System.out.printf("%s%n", bookings.get(option));
+         option = getOptionFromUser(0, bookings.size());
+         if(option == 0){
+            break; // Going back to main menu
          }
+         System.out.printf("%s%n", bookings.get(option));
          break;
          case 2: // Create booking
             bookings.add(Booking.letUserCreateBooking(rooms, guests));
@@ -73,13 +73,16 @@ public class Menu{
          case 3: // Edit booking
             System.out.println("What booking do you want to edit?");
             Booking.showList(bookings); // Showing user list of bookings to select from
-            option = scanInput.nextInt() - 1; // Getting user input
-            if(option != -1 && option < bookings.size()){
-               bookings.get(option).edit(guests); // Guests is used to select guest ID
-               break;
-            }
-            System.out.println("Invalid input! Returning to main menu.");
-            break;  
+            option = getOptionFromUser(1, bookings.size()) - 1;
+            bookings.get(option).edit(guests); // Guests is used to select guest ID
+            break;
+         case 4: // Delete booking
+            Booking.showList(bookings); // Showing user list of bookings to select from
+            option = getOptionFromUser(1, bookings.size()) - 1;
+            String name = bookings.get(option).getName();
+            bookings.remove(option);
+            System.out.printf("%s has been removed%n", name);
+           
       }
    }
    
@@ -93,5 +96,27 @@ public class Menu{
    
    private static void staffMenu(ArrayList<Staff> staff){
       // TODO: Implement
+   }
+   
+   // Returns a integer between minInt..maxInt
+   public static int getOptionFromUser(int minInt, int maxInt){
+      Scanner scan = new Scanner(System.in);
+      int number;
+      boolean isNotValid = false;
+      
+      do{
+         if(isNotValid){
+            System.out.printf("The number must be between %d and %d%n", minInt, maxInt);
+         }
+         while(!scan.hasNextInt()){
+            System.out.printf("That is not a number! Please try again.%n");
+            scan.next();
+         }
+         // hasNextInt() true, reading number from console
+         number = scan.nextInt();
+         isNotValid = number < minInt || number > maxInt;
+      }while(isNotValid);
+      
+      return number;
    }
 }
