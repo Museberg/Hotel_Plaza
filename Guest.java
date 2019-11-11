@@ -25,7 +25,7 @@ public class Guest{
       return String.format("%s %s", this.firstName, this.lastName);
    }
    
-   // Presents the user with a list of all the bookings
+   // Presents the user with a list of all the guests
    public static void showList(ArrayList<Guest> guests){
       for(int i = 0; i < guests.size(); i++){
          System.out.printf("%d - %s%n", i+1, guests.get(i).getName());

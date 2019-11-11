@@ -22,7 +22,7 @@ public class Menu{
       System.out.printf("%d to show, create, or edit staff members%n", 4);
       System.out.printf("%d to exit the program. All work is saved%n", 5);
       
-      return scanInput.nextInt();
+      return getOptionFromUser(1, 5);
    }
    
    public static void menuActions(int option, ArrayList<Room> rooms, ArrayList<Guest> guests, ArrayList<Staff> staff, ArrayList<Booking> bookings) throws ParseException{
@@ -82,6 +82,7 @@ public class Menu{
             String name = bookings.get(option).getName();
             bookings.remove(option);
             System.out.printf("%s has been removed%n", name);
+            break;
            
       }
    }

@@ -90,19 +90,24 @@ public class Booking{
       int roomID = -1;
       System.out.printf("Which room should be booked?%n");
       Room.showList(rooms); // Showing list of rooms to book
-      int option = scan.nextInt() - 1; // Letting user select
-      if(option != -1 && option < rooms.size()){
-         roomID = rooms.get(option).getRoomID();
+      System.out.printf("%d to create a new room%n", 0);
+      int option = Menu.getOptionFromUser(0, rooms.size()) - 1;
+      if(option == -1){
+         System.out.println("NOT IMPLEMENTED YET! Selecting first room on list");
+         option = 0;
       }
+      roomID = rooms.get(option).getRoomID();
       
-      String guestID = "";
       System.out.printf("Which guest is booking the room?%n");
       Guest.showList(guests);
-      option = scan.nextInt() - 1;
-      if(option != -1 && option < guests.size()){
-         guestID = guests.get(option).getGuestID();
+      System.out.printf("%d to create a new guest%n", 0); // TODO: Imeplement
+      option = Menu.getOptionFromUser(0, guests.size()) - 1;
+      if(option == -1){
+         System.out.println("NOT IMPLEMENTED YET! Selecting first guest on list");
+         option = 0;
       }
-      Booking newBooking = new Booking(startDate, endDate, roomID, guestID); 
+      String guestID = guests.get(option).getGuestID();
+      Booking newBooking = new Booking(startDate, endDate, roomID, guestID);   
       System.out.printf("Following booking has now been created:%n%s", newBooking.toString(guests.get(option)));
       return newBooking;
    }
@@ -117,8 +122,7 @@ public class Booking{
       System.out.printf("%d - Room ID (%d)%n", 3, roomID);
       System.out.printf("%d - Guest ID (%s)%n", 4, guestID);
       
-      int option = scanInput.nextInt();
-      scanInput.nextLine(); // Eating leftover newline
+      int option = Menu.getOptionFromUser(1, 4);
       LocalDate newDate;
       switch(option){
          case 1: // New start date
