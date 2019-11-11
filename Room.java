@@ -15,6 +15,36 @@ public class Room{
    public int getRoomID(){
       return this.roomID;
    }
+
+   public int getBeds(){
+      return this.beds;
+   }
+
+   public boolean getInternet(){
+      return this.internetAccess;
+   }
+
+   public double getPrice(){
+      return this.pricePerNight;
+   }
+
+   public String toString(){
+      return getName() +
+         "\nRoom ID: " + this.roomID +
+         "\nFloor: " + getFloor() +
+         "\nBeds: " + this.beds +
+         "\nInternet access: " + (internetAccess ? "Yes" : "No") +
+         "\nPrice per night: " + pricePerNight; 
+
+   }
+
+   public String getRoomInSaveFormat(){
+      return String.format("%d, %d, %b, %.2f",
+         this.roomID,
+         this.beds,
+         this.internetAccess,
+         this.pricePerNight);
+   }
    
    // RoomID should be given as "123" where "1" is floor number and "23" is room number
    public Room(int roomID, int beds, boolean internetAccess, double pricePerNight){
@@ -26,6 +56,15 @@ public class Room{
    
    public String getName(){
       return String.format("Room %s on floor %d", this.roomID, this.getFloor());
+   }
+
+   public static Room getRoomFromID(int roomID, ArrayList<Room> rooms){
+      for(Room room : rooms){
+         if(room.roomID == roomID){
+            return room;
+         }
+      }
+      return null;
    }
    
    public static void showList(ArrayList<Room> rooms){
@@ -52,14 +91,73 @@ public class Room{
       boolean internetAccess = InputHelper.getOptionFromUser(1, 2) == 1; // If 1, internet access == true
 
       System.out.printf("What is the price per night for the new room?%n");
-      int pricePerNight = InputHelper.getIntFromUser();
+      double pricePerNight = InputHelper.getDoubleFromUser();
 
       Room newRoom = new Room(roomID, beds, internetAccess, pricePerNight);
 
       if(printRoom){
-         System.out.printf("The following guest has been added to the sytem%n%s", printRoom);
+         System.out.printf("The following room has been added to the sytem%n%s%n", newRoom);
       }
       return newRoom;
+   }
+
+   public void edit(){
+      Scanner scan = new Scanner(System.in);
+      System.out.printf("What do you want to edit?%n");
+
+      System.out.printf("%d - Room ID (%d)%n", 1, this.roomID);
+      System.out.printf("%d - Amount of beds(%d)%n", 2, this.beds);
+      System.out.printf("%d - Internet access(%s)%n", 3, (this.internetAccess ? "Yes" : "No"));
+      System.out.printf("%d - Price per night(%d)%n", 4, this.pricePerNight);
+      System.out.printf("%d - Return to main menu%n", 0);
+
+      int option = InputHelper.getOptionFromUser(0, 4);
+
+      switch(option){
+         case 1: // Edit room ID
+            this.roomID = InputHelper.getIntFromUser();
+            while(String.valueOf(roomID).length() != 3){
+               System.out.printf("The number %d is not 3 digits long. Please try again.%n", roomID);
+               this.roomID = InputHelper.getIntFromUser();
+            }
+            System.out.printf("The room ID has been updated to %d%n", this.roomID);
+            break;
+
+         case 2: // Edit number of beds
+            this.beds = InputHelper.getIntFromUser();
+            System.out.printf("The amount of beds for the room has been updated to%d%n", beds);
+            break;
+
+         case 3: // Edit internet access
+            System.out.printf("Type %d for internet access%nType %d for no internet access%n", 1, 2);
+            this.internetAccess = InputHelper.getOptionFromUser(1, 2) == 1;
+            if(internetAccess){
+               System.out.printf("There is now internet access in %s%n", this.getName());
+            }
+            else{
+               System.out.printf("There is now NOT internet access in %s%n", this.getName());
+            }
+            break;
+
+         case 4: // Edit price per night
+            this.pricePerNight = InputHelper.getDoubleFromUser();
+            System.out.printf("The price per night has been updated to %d%n", this.pricePerNight);
+      }
+   }
+
+   public static ArrayList<Room> getValidRooms(ArrayList<Room> rooms, int beds, boolean internetAccess, double price){
+      ArrayList<Room> validRooms = new ArrayList<Room>();
+      for(Room room : rooms){ // Looping through each room
+         if(room.getBeds() >= beds){
+            if(room.getInternet() == internetAccess){
+               if(room.getPrice() <= price){ // If all are true, room is valid
+                  validRooms.add(room);
+               }
+            }
+         }
+
+      }
+      return validRooms;
 
    }
 

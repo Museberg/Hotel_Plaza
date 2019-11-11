@@ -17,6 +17,15 @@ public class Staff{
       this.salary = salary;
    }
    
+   public String toString(){
+      return getName() +
+         "\nTitle: " + this.title +
+         "\nFist name: " + this.firstName +
+         "\nLast name: " + this.lastName +
+         "\nPhone number: " + this.phoneNumber +
+         "\nSalary: " + this.salary;
+   }
+   
    // Presents the user with a list of all the staff
    public static void showList(ArrayList<Staff> staff){
       for(int i = 0; i < staff.size(); i++){
@@ -25,8 +34,17 @@ public class Staff{
    }
 
    public String getName(){
-      return String.format("%s - %s %s", title, firstName, lastName);
+      return String.format("%s - %s %s", this.title, this.firstName, this.lastName);
 
+   }
+
+   public String getStaffInSaveFormat(){
+      return String.format("%s, %s, %s, %d, %.2f",
+         this.title,
+         this.firstName,
+         this.lastName,
+         this.phoneNumber,
+         this.salary);
    }
 
    public static Staff letUserCreateStaff(boolean printStaff) throws ParseException{
@@ -50,7 +68,7 @@ public class Staff{
       Staff newStaff = new Staff(title, firstName, lastName, phoneNumber, salary);
       
       if(printStaff){
-         System.out.printf("Following staff member has been added to system%n%s", newStaff);
+         System.out.printf("Following staff member has been added to system%n%s%n", newStaff);
       }
       return newStaff;
    }

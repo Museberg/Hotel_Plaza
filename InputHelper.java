@@ -53,4 +53,14 @@ public class InputHelper{
       return retVal;
    }
    
+   public static double getDoubleFromUser(){
+      Scanner scanInput = new Scanner(System.in);
+      while(!scanInput.hasNextDouble()){
+         System.out.printf("The input '%s' is not a number. Please try again.%n", scanInput.nextLine());
+         continue;
+      }
+      double retVal = scanInput.nextDouble();
+      scanInput.nextLine(); // Eating leftover newline
+      return retVal;
+   }
 }

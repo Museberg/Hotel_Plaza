@@ -16,8 +16,6 @@ public class Booking{
    
    // Dates should be written as dd/MM yyyy
    public Booking(LocalDate startDate, LocalDate endDate, int roomID, String guestID) throws ParseException{
-      
-      
       this.startDate = startDate;
       this.endDate = endDate;
       this.numberOfDays = DateHelper.getDays(this.startDate, this.endDate);
@@ -34,9 +32,16 @@ public class Booking{
    }
    
    public String getName(){
-      return String.format("Booking for guest %s", this.guestID);
+      return String.format("Booking for %s in room %d", this.guestID, this.roomID);
    }
    
+   public long getNumberOfDays(){
+      return numberOfDays;
+   }
+
+   public int getRoomID(){
+      return this.roomID;
+   }
    
    // Presents the user with a list of all the bookings
    public static void showList(ArrayList<Booking> bookings){
@@ -71,15 +76,29 @@ public class Booking{
          "\nEnd date: " + DateHelper.dateToString(this.endDate) +
          "\nRoom is booked for: " + numberOfDays + " days" +
          "\nRoomID: " + roomID +
-         "\nGuest ID: " + guestID + String.format(" (%s)%n", guest.getName());
+         "\nGuest ID: " + guestID + String.format(" (%s)", guest.getName());
    }
    
    public static Booking letUserCreateBooking(ArrayList<Room> rooms, ArrayList<Guest> guests) throws ParseException{
       Scanner scan = new Scanner(System.in);
+
+      System.out.printf("Which guest is booking the room?%n");
+      Guest.showList(guests);
+      System.out.printf("%d to create a new guest%n", 0); // TODO: Implement
+      int option = InputHelper.getOptionFromUser(0, guests.size() + 1) - 1;
+      String guestID;
+      if(option != guests.size()){ // If we are NOT creating a new guest
+         guestID = guests.get(option).getGuestID();
+      }
+      else{ // Creating a new guest and taking ID of that
+         Guest newGuest = Guest.letUserCreateGuest(false, guests);
+         guests.add(newGuest);
+         guestID = newGuest.getGuestID();
+      }
       
       System.out.printf("What's the start date of the booking? Write as %s%n", dateFormat);
       LocalDate startDate = DateHelper.getValidDateFromUser();
-      
+
       System.out.printf("What's the end date of the booking? Write as %s%n", dateFormat);
       LocalDate endDate = DateHelper.getValidDateFromUser();
       while(!startDate.isBefore(endDate)){
@@ -87,32 +106,29 @@ public class Booking{
             DateHelper.dateToString(startDate), DateHelper.dateToString(endDate));
          endDate = DateHelper.getValidDateFromUser();
       }
+
+      System.out.printf("How many beds should the room have?%n");
+      int beds = InputHelper.getIntFromUser();
+
+      System.out.printf("Should the room have internet access?%n%d for yes%n%d for no%n", 1, 2);
+      boolean internet = InputHelper.getOptionFromUser(1, 2) == 1;
+
+      System.out.printf("What is the max allowed price of the room per night?%n");
+      double price = InputHelper.getDoubleFromUser();
+
+      ArrayList<Room> validRooms = Room.getValidRooms(rooms, beds, internet, price);
+
+      if(validRooms.size() == 0){
+         System.out.printf("No rooms matching the criteria was found. Returning to main menu%n");
+         return null;
+      }
       
-      int roomID = -1;
-      System.out.printf("Which room should be booked?%n");
-      Room.showList(rooms); // Showing list of rooms to book
-      System.out.printf("%d to create a new room%n", rooms.size() + 1);
-      int option = Menu.getOptionFromUser(1, rooms.size() + 1) - 1;
-      if(option != rooms.size()){ // If we are NOT creating a new room
-         roomID = rooms.get(option).getRoomID();
-      }
-      else{ // Creating a new room and taking ID of that
-         Room newRoom = Room.letUserCreateRoom(false);
-         rooms.add(newRoom);
-         roomID = newRoom.getRoomID();
-      }
-      
-      System.out.printf("Which guest is booking the room?%n");
-      Guest.showList(guests);
-      System.out.printf("%d to create a new guest%n", 0); // TODO: Implement
-      option = Menu.getOptionFromUser(0, guests.size()) - 1;
-      if(option == -1){ // New guest to be created
-         System.out.println("NOT IMPLEMENTED YET! Selecting first guest on list");
-         option = 0;
-      }
-      String guestID = guests.get(option).getGuestID();
-      Booking newBooking = new Booking(startDate, endDate, roomID, guestID);   
-      System.out.printf("Following booking has now been created:%n%s", newBooking.toString(guests.get(option)));
+      System.out.printf("The following rooms matches the provided criteria.%nPlease select which room to book%n");
+      Room.showList(validRooms);
+      option = InputHelper.getOptionFromUser(1, validRooms.size()) - 1;
+
+      Booking newBooking = new Booking(startDate, endDate, rooms.get(option).getRoomID(), guestID);   
+      System.out.printf("Following booking has now been created:%n%s%n", newBooking.toString(guests.get(option)));
       return newBooking;
    }
    
@@ -127,11 +143,11 @@ public class Booking{
       System.out.printf("%d - Guest ID (%s)%n", 4, guestID);
       System.out.printf("%d - Return to main menu%n", 0); 
       
-      int option = Menu.getOptionFromUser(0, 4);
+      int option = InputHelper.getOptionFromUser(0, 4);
       LocalDate newDate;
       switch(option){
          case 1: // New start date
-            System.out.printf("Current date is %s. What do you want to change it to? Write it as %s%n",
+            System.out.printf("Current start date is %s. What do you want to change it to? Write it as %s%n",
                DateHelper.dateToString(startDate), dateFormat);
             // Getting new date from user
             newDate = DateHelper.getValidDateFromUser();
@@ -145,6 +161,7 @@ public class Booking{
             this.setStartDate(newDate);
             System.out.printf("The start date has been updated to %s%n", DateHelper.dateToString(startDate));   
             break;
+            
          case 2: // New end date
             System.out.printf("Current date is %s. What do you want to change it to? Write it as %s%n",
                DateHelper.dateToString(endDate), dateFormat);
@@ -160,6 +177,7 @@ public class Booking{
             setEndDate(newDate);
             System.out.printf("The end date has been updated to %s%n", DateHelper.dateToString(endDate));
             break;
+
          case 3: // Room ID
             System.out.printf("New room ID must correspond with an existing room. Please select room%n");
             Room.showList(rooms);
@@ -170,22 +188,38 @@ public class Booking{
                System.out.printf("The room ID has been updated to %d%n", this.roomID);
                break;
             }
+
             Room newRoom = Room.letUserCreateRoom(false);
             rooms.add(newRoom);
             this.roomID = newRoom.getRoomID();
             System.out.printf("The room ID has been updated to %d%n", this.roomID);
             break;
+
          case 4: // Guest ID   
             System.out.printf("Guest ID (%s) can only be changed to a guest ID currently assigned to a customer. Please select a customer.%n", this.roomID);
             Guest.showList(guests);
-            option = Menu.getOptionFromUser(1, guests.size()) - 1;
-            this.guestID = guests.get(option).getGuestID();
+            System.out.printf("%d to create a new guest and use guest ID of that", guests.size() + 1);
+            option = InputHelper.getOptionFromUser(1, guests.size() + 1) - 1;
+            if(option != guests.size()){ // If we are NOT creating a new room
+               this.guestID = guests.get(option).getGuestID();
+               System.out.printf("The guest ID has been updated to %s%n", this.guestID);
+               break;
+            }
+
+            Guest newGuest = Guest.letUserCreateGuest(false, guests);
+            guests.add(newGuest);
+            this.guestID = newGuest.getGuestID();
             System.out.printf("Guest ID for has been updated to %s%n", this.guestID);
             break;
+
          case 0:
             System.out.printf("Returning to main menu%n");
             break;
          }
+   }
+
+   public double getPrice(Room room){
+      return room.getPrice() * this.numberOfDays;
    }
 
 }
