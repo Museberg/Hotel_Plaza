@@ -65,6 +65,7 @@ public class Booking{
          "\nGuest ID: " + guestID;
    }
    
+   // Also prints name of guest ID
    public String toString(Guest guest){
       return "\nStart date: " + DateHelper.dateToString(this.startDate) +
          "\nEnd date: " + DateHelper.dateToString(this.endDate) +
@@ -90,19 +91,22 @@ public class Booking{
       int roomID = -1;
       System.out.printf("Which room should be booked?%n");
       Room.showList(rooms); // Showing list of rooms to book
-      System.out.printf("%d to create a new room%n", 0);
-      int option = Menu.getOptionFromUser(0, rooms.size()) - 1;
-      if(option == -1){
-         System.out.println("NOT IMPLEMENTED YET! Selecting first room on list");
-         option = 0;
+      System.out.printf("%d to create a new room%n", rooms.size() + 1);
+      int option = Menu.getOptionFromUser(1, rooms.size() + 1) - 1;
+      if(option != rooms.size()){ // If we are NOT creating a new room
+         roomID = rooms.get(option).getRoomID();
       }
-      roomID = rooms.get(option).getRoomID();
+      else{ // Creating a new room and taking ID of that
+         Room newRoom = Room.letUserCreateRoom(false);
+         rooms.add(newRoom);
+         roomID = newRoom.getRoomID();
+      }
       
       System.out.printf("Which guest is booking the room?%n");
       Guest.showList(guests);
-      System.out.printf("%d to create a new guest%n", 0); // TODO: Imeplement
+      System.out.printf("%d to create a new guest%n", 0); // TODO: Implement
       option = Menu.getOptionFromUser(0, guests.size()) - 1;
-      if(option == -1){
+      if(option == -1){ // New guest to be created
          System.out.println("NOT IMPLEMENTED YET! Selecting first guest on list");
          option = 0;
       }
@@ -113,7 +117,7 @@ public class Booking{
    }
    
    // Lets the user edit a value in a booking
-   public void edit(ArrayList<Guest> guests){
+   public void edit(ArrayList<Guest> guests, ArrayList<Room> rooms){
       Scanner scanInput = new Scanner(System.in);
       System.out.println("What do you want to edit?\n");
       
@@ -121,8 +125,9 @@ public class Booking{
       System.out.printf("%d - End Date (%s)%n", 2, DateHelper.dateToString(endDate));
       System.out.printf("%d - Room ID (%d)%n", 3, roomID);
       System.out.printf("%d - Guest ID (%s)%n", 4, guestID);
+      System.out.printf("%d - Return to main menu%n", 0); 
       
-      int option = Menu.getOptionFromUser(1, 4);
+      int option = Menu.getOptionFromUser(0, 4);
       LocalDate newDate;
       switch(option){
          case 1: // New start date
@@ -137,7 +142,7 @@ public class Booking{
                newDate = DateHelper.getValidDateFromUser();
             }
             // Valid date has now been found
-            setStartDate(newDate);
+            this.setStartDate(newDate);
             System.out.printf("The start date has been updated to %s%n", DateHelper.dateToString(startDate));   
             break;
          case 2: // New end date
@@ -156,39 +161,31 @@ public class Booking{
             System.out.printf("The end date has been updated to %s%n", DateHelper.dateToString(endDate));
             break;
          case 3: // Room ID
-            System.out.printf("Please enter in a new room ID. Must be three digits long where the first digit represents the floor%n");
-            // Getting input and validating
-            int newID = getIntFromUser();
-            
-            while(String.valueOf(newID).length() != 3){
-               System.out.printf("The number %d is not 3 digits long. Please try again.%n", newID);
-               newID = getIntFromUser();
+            System.out.printf("New room ID must correspond with an existing room. Please select room%n");
+            Room.showList(rooms);
+            System.out.printf("%d to create a new room and use room ID of that%n", rooms.size() + 1);
+            option = InputHelper.getOptionFromUser(1, rooms.size() + 1) - 1;
+            if(option != rooms.size()){ // If we are NOT creating a new room
+               this.roomID = rooms.get(option).getRoomID();
+               System.out.printf("The room ID has been updated to %d%n", this.roomID);
+               break;
             }
-            this.roomID = newID;
+            Room newRoom = Room.letUserCreateRoom(false);
+            rooms.add(newRoom);
+            this.roomID = newRoom.getRoomID();
             System.out.printf("The room ID has been updated to %d%n", this.roomID);
             break;
          case 4: // Guest ID   
             System.out.printf("Guest ID (%s) can only be changed to a guest ID currently assigned to a customer. Please select a customer.%n", this.roomID);
             Guest.showList(guests);
-            option = scanInput.nextInt() - 1;
-            scanInput.nextLine();
-            if(option != -1 && option < guests.size()){ // If valid option chosen
-               this.guestID = guests.get(option).getGuestID();
-            }
+            option = Menu.getOptionFromUser(1, guests.size()) - 1;
+            this.guestID = guests.get(option).getGuestID();
             System.out.printf("Guest ID for has been updated to %s%n", this.guestID);
             break;
+         case 0:
+            System.out.printf("Returning to main menu%n");
+            break;
          }
-   }
-   
-   private int getIntFromUser(){
-      Scanner scanInput = new Scanner(System.in);
-      while(!scanInput.hasNextInt()){
-         System.out.printf("The input '%s' is not a number. Please try again.%n", scanInput.nextLine());
-         continue;
-      }
-      int retVal = scanInput.nextInt();
-      scanInput.nextLine(); // Eating leftover newline
-      return retVal;
    }
 
 }

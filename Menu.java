@@ -60,9 +60,9 @@ public class Menu{
       switch(input){
          case 1: // Show list of bookings - allows user to see more info on single booking
          Booking.showList(bookings);
-         System.out.println("Press the corresponding number to see all information about a booking. Press 0 to go back to main menu");
-         option = getOptionFromUser(0, bookings.size());
-         if(option == 0){
+         System.out.printf("Press the corresponding number to see all information about a booking.%nPress 0 to go back to main menu%n");
+         option = getOptionFromUser(0, bookings.size()) - 1;
+         if(option == -1){
             break; // Going back to main menu
          }
          System.out.printf("%s%n", bookings.get(option));
@@ -71,16 +71,16 @@ public class Menu{
             bookings.add(Booking.letUserCreateBooking(rooms, guests));
             break;
          case 3: // Edit booking
-            System.out.println("What booking do you want to edit?");
+            System.out.println("What booking do you want to edit?%n");
             Booking.showList(bookings); // Showing user list of bookings to select from
             option = getOptionFromUser(1, bookings.size()) - 1;
-            bookings.get(option).edit(guests); // Guests is used to select guest ID
+            bookings.get(option).edit(guests, rooms); // Guests is used to select guest ID
             break;
          case 4: // Delete booking
             Booking.showList(bookings); // Showing user list of bookings to select from
             option = getOptionFromUser(1, bookings.size()) - 1;
             String name = bookings.get(option).getName();
-            bookings.remove(option);
+            bookings.remove(option); // Removes booking from array list
             System.out.printf("%s has been removed%n", name);
             break;
            
@@ -95,8 +95,46 @@ public class Menu{
       // TODO: Implement
    }
    
-   private static void staffMenu(ArrayList<Staff> staff){
-      // TODO: Implement
+   private static void staffMenu(ArrayList<Staff> staff) throws ParseException{
+      Scanner scan = new Scanner(System.in);
+      System.out.println("Staff selected. What do you want to do?");
+      
+      System.out.printf("%d to show a list of all staff - can also show staff information%n", 1);
+      System.out.printf("%d to create a new staff member%n", 2);
+      System.out.printf("%d to edit a staff member%n", 3);
+      System.out.printf("%d to delete a staff member. This action is permanent%n", 4);
+      System.out.printf("%d to return to main menu", 0);
+      
+      int option = getOptionFromUser(0, 4);
+      int input;
+      
+      switch(option){
+         case 1: // Show list of staff
+            Staff.showList(staff);
+            System.out.printf("Press the corresponding number to see all information about a staff member.%nPress 0 to go back to main menu%n");
+            input = getOptionFromUser(0, staff.size());
+            if(input == 0){
+               break; // Going back to main menu
+            }
+            System.out.printf("s%n", staff.get(input)); 
+            break;
+         case 2: // Create new staff member
+            Staff.letUserCreateStaff(true);
+            break;
+         case 3: // Edit staff member
+            System.out.println("What staff do you want to edit?%n");
+            Staff.showList(staff); // Showing user list of bookings to select from
+            option = getOptionFromUser(1, staff.size()) - 1;
+            staff.get(option).edit();
+         case 4: // Delete staff member
+            Staff.showList(staff); // Showing user list of bookings to select from
+            option = getOptionFromUser(1, staff.size()) - 1;
+            String name = staff.get(option).getName();
+            staff.remove(option); // Removes staff member from array list
+            System.out.printf("%s has been removed%n", name);
+            break;
+
+      }
    }
    
    // Returns a integer between minInt..maxInt
