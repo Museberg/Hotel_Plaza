@@ -55,8 +55,10 @@ public class Menu{
       System.out.printf("%d to edit a booking%n", 3);
       System.out.printf("%d to delete a booking. This action is permanent%n", 4);
       System.out.printf("%d print bill for a booking%n", 5);
+      System.out.printf("%d add days to booking%n", 6);
+      System.out.printf("%d return to main menu%n", 0);
       
-      int option = InputHelper.getOptionFromUser(1, 5);
+      int option = InputHelper.getOptionFromUser(0, 6);
       switch(option){
          case 1: // Show list of bookings - allows user to see more info on single booking
          if(bookings.size() == 0){
@@ -117,6 +119,20 @@ public class Menu{
             System.out.printf("%s%n", bill);
             break;
 
+         case 6: // Add days to booking
+            System.out.printf("What booking do you want to extend the duration of?%n");
+            Booking.showList(bookings); // Showing user list of bookings to select from
+            option = InputHelper.getOptionFromUser(1, bookings.size()) - 1;
+            Booking bk = bookings.get(option);
+            String oldEndDate = DateHelper.dateToString(bk.getEndDate());
+
+            System.out.printf("How many days do you want to expand the booking with?%n");
+            int addDays = InputHelper.getIntFromUser();
+            bk.setEndDate(bk.getEndDate().plusDays(addDays));
+            System.out.printf("Enddate has been updated from %s to %s%n", oldEndDate, DateHelper.dateToString(bk.getEndDate()));
+
+         case 0: // Returning to main menu
+            break;
            
       }
    }
@@ -129,8 +145,9 @@ public class Menu{
       System.out.printf("%d to create a new room%n", 2);
       System.out.printf("%d to edit a room%n", 3);
       System.out.printf("%d to delete a room. This action is permanent%n", 4);
+      System.out.printf("%d return to main menu%n", 0);
       
-      int option = InputHelper.getOptionFromUser(1, 4);
+      int option = InputHelper.getOptionFromUser(0, 4);
 
       switch(option){
          case 1: // Show list of rooms
@@ -168,6 +185,9 @@ public class Menu{
             String name = rooms.get(option).getName();
             rooms.remove(option); // Removes booking from array list
             System.out.printf("%s has been removed%n", name);
+            break;
+
+         case 0: // Return to main menu
             break;
       }
    }

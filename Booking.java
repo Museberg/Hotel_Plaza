@@ -55,9 +55,13 @@ public class Booking{
       this.numberOfDays = DateHelper.getDays(this.startDate, this.endDate);
    }
 
-   private void setEndDate(LocalDate newEndDate){
+   public void setEndDate(LocalDate newEndDate){
       this.endDate = newEndDate;
       this.numberOfDays = DateHelper.getDays(this.startDate, this.endDate);
+   }
+
+   public LocalDate getEndDate(){
+      return this.endDate;
    }
    
    @Override

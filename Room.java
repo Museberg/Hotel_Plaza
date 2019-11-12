@@ -108,7 +108,7 @@ public class Room{
       System.out.printf("%d - Room ID (%d)%n", 1, this.roomID);
       System.out.printf("%d - Amount of beds(%d)%n", 2, this.beds);
       System.out.printf("%d - Internet access(%s)%n", 3, (this.internetAccess ? "Yes" : "No"));
-      System.out.printf("%d - Price per night(%d)%n", 4, this.pricePerNight);
+      System.out.printf("%d - Price per night(%.2f)%n", 4, this.pricePerNight);
       System.out.printf("%d - Return to main menu%n", 0);
 
       int option = InputHelper.getOptionFromUser(0, 4);
