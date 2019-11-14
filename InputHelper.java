@@ -32,15 +32,6 @@ public class InputHelper{
       }
       return scan.nextInt();
    }
-   
-   public static int getSalary(){
-      Scanner scan = new Scanner(System.in);
-      
-      while(!scan.hasNextInt()){
-         System.out.printf("The entered salary %s is not a number! Please try again%n", scan.nextLine());
-      }
-      return scan.nextInt();
-   }
 
    public static int getIntFromUser(){
       Scanner scanInput = new Scanner(System.in);
@@ -60,7 +51,6 @@ public class InputHelper{
          continue;
       }
       double retVal = scanInput.nextDouble();
-      scanInput.nextLine(); // Eating leftover newline
       return retVal;
    }
 }

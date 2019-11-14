@@ -90,25 +90,25 @@ public class Guest{
          case 1: // Edit first name
             System.out.printf("What do you want to change the guest's first name to?%n");
             this.firstName = scan.nextLine();
-            System.out.printf("First name of guest has been updated to%s%n", this.firstName);
+            System.out.printf("First name of guest has been updated to %s%n", this.firstName);
             break;
 
          case 2: // Edit last name
             System.out.printf("What do you want to change the guest's last name to?%n");
             this.lastName = scan.nextLine();
-            System.out.printf("Last name of guest has been updated to%s%n", this.lastName);
+            System.out.printf("Last name of guest has been updated to %s%n", this.lastName);
             break;
 
          case 3:
             System.out.printf("What do you want to change the guest's address to?");
             this.address = scan.nextLine();
-            System.out.printf("Address of guest has been updated to%s%n", this.address);
+            System.out.printf("Address of guest has been updated to %s%n", this.address);
             break;
 
          case 4:
             System.out.printf("What do you want to change the guest's phone number to?%n");
             this.phoneNumber = InputHelper.getIntFromUser();
-            System.out.printf("Phone number of guest has been updated to%s%n", phoneNumber);
+            System.out.printf("Phone number of guest has been updated to %s%n", phoneNumber);
             break;
       }
 

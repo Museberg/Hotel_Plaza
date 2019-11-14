@@ -5,11 +5,11 @@ import java.time.*;
 import java.time.format.*;
 
 public class Booking{
-   LocalDate startDate;
-   LocalDate endDate;
-   long numberOfDays;
-   int roomID;
-   String guestID;
+   private LocalDate startDate;
+   private LocalDate endDate;
+   private long numberOfDays;
+   private int roomID;
+   private String guestID;
    
    
    private static String dateFormat = "dd/mm yyyy";
@@ -50,7 +50,7 @@ public class Booking{
       }
    }
    
-   private void setStartDate(LocalDate newStartDate){
+   public void setStartDate(LocalDate newStartDate){
       this.startDate = newStartDate;
       this.numberOfDays = DateHelper.getDays(this.startDate, this.endDate);
    }

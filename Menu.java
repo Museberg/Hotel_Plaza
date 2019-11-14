@@ -108,7 +108,7 @@ public class Menu{
             Booking.showList(bookings);
             option = InputHelper.getOptionFromUser(1, bookings.size()) - 1;
             Booking booking = bookings.get(option);
-            Room room = Room.getRoomFromID(booking.roomID, rooms);
+            Room room = Room.getRoomFromID(booking.getRoomID(), rooms);
 
             String bill =
                "Bill for renting room " + Room.getRoomFromID(booking.getRoomID(), rooms).getName() +
@@ -260,7 +260,7 @@ public class Menu{
             if(option == 0){
                break; // Going back to main menu
             }
-            System.out.printf("s%n", staff.get(option - 1)); 
+            System.out.printf("%s%n", staff.get(option - 1)); 
             break;
 
          case 2: // Create new staff member
@@ -272,6 +272,7 @@ public class Menu{
             Staff.showList(staff); // Showing user list of bookings to select from
             option = InputHelper.getOptionFromUser(1, staff.size()) - 1;
             staff.get(option).edit();
+            break;
 
          case 4: // Delete staff member
             Staff.showList(staff); // Showing user list of bookings to select from

@@ -4,14 +4,14 @@ import java.text.*;
 
 public class FileHandler{
 
-   public static void writeBookingsToDisk(ArrayList<Booking> bookingList) throws FileNotFoundException{
+   private static void writeBookingsToDisk(ArrayList<Booking> bookings) throws FileNotFoundException{
       PrintStream output = new PrintStream(new File("Bookings.txt"));
-      for(Booking booking : bookingList){
+      for(Booking booking : bookings){
          output.println(booking.getBookingInSaveFormat());
       }
    }
    
-   public static void readBookingsFromDisk(ArrayList<Booking> bookingList) throws ParseException, FileNotFoundException{
+   private static void readBookingsFromDisk(ArrayList<Booking> bookings) throws ParseException, FileNotFoundException{
       Scanner scan = new Scanner(new File("Bookings.txt"));
       // While scanner can find a new line (new booking)
       while(scan.hasNextLine()){
@@ -20,18 +20,18 @@ public class FileHandler{
          
          Booking booking = new Booking(DateHelper.parseDate(lineScan.next()), DateHelper.parseDate(lineScan.next()),
             lineScan.nextInt(), lineScan.next());
-         bookingList.add(booking);
+         bookings.add(booking);
       }
    }
 
-   public static void writeStaffToDisk(ArrayList<Staff> staffList) throws FileNotFoundException{
+   private static void writeStaffToDisk(ArrayList<Staff> staff) throws FileNotFoundException{
       PrintStream output = new PrintStream(new File("StaffMembers.txt"));
-      for(Staff staff : staffList){
-         output.println(staff.getStaffInSaveFormat());
+      for(Staff staffMember : staff){
+         output.println(staffMember.getStaffInSaveFormat());
       }
    }
 
-   public static void readStaffFromDisk(ArrayList<Staff> staffList) throws FileNotFoundException{
+   private static void readStaffFromDisk(ArrayList<Staff> staff) throws FileNotFoundException{
       Scanner scan = new Scanner(new File("StaffMembers.txt"));
       // While scanner can find a new line (new staff member)
       while(scan.hasNextLine()){
@@ -39,18 +39,18 @@ public class FileHandler{
          lineScan.useDelimiter(", "); // .next() now looks for a ', ' rather than a space
          
          Staff newStaff = new Staff(lineScan.next(), lineScan.next(), lineScan.next(), lineScan.nextInt(), lineScan.nextDouble());
-         staffList.add(newStaff);
+         staff.add(newStaff);
       }
    }
 
-   public static void writeRoomToDisk(ArrayList<Room> roomList) throws FileNotFoundException{
+   private static void writeRoomToDisk(ArrayList<Room> rooms) throws FileNotFoundException{
       PrintStream output = new PrintStream(new File("Rooms.txt"));
-      for(Room room : roomList){
+      for(Room room : rooms){
          output.println(room.getRoomInSaveFormat());
       }
    }
 
-   public static void readRoomFromDisk(ArrayList<Room> roomList) throws FileNotFoundException{
+   private static void readRoomFromDisk(ArrayList<Room> rooms) throws FileNotFoundException{
       Scanner scan = new Scanner(new File("Rooms.txt"));
       // While scanner can find a new line (new room)
       while(scan.hasNextLine()){
@@ -58,18 +58,18 @@ public class FileHandler{
          lineScan.useDelimiter(", "); // .next() now looks for a ', ' rather than a space
          
          Room newRoom = new Room(lineScan.nextInt(), lineScan.nextInt(), lineScan.nextBoolean(), lineScan.nextDouble());
-         roomList.add(newRoom);
+         rooms.add(newRoom);
       }
    }
 
-   public static void writeGuestToDisk(ArrayList<Guest> guestList) throws FileNotFoundException{
+   private static void writeGuestToDisk(ArrayList<Guest> guests) throws FileNotFoundException{
       PrintStream output = new PrintStream(new File("Guests.txt"));
-      for(Guest guest : guestList){
+      for(Guest guest : guests){
          output.println(guest.getGuestInSaveFormat());
       }
    }
 
-   public static void readGuestFromDisk(ArrayList<Guest> guestList) throws FileNotFoundException{
+   private static void readGuestFromDisk(ArrayList<Guest> guests) throws FileNotFoundException{
       Scanner scan = new Scanner(new File("Guests.txt"));
       // While scanner can find a new line (new room)
       while(scan.hasNextLine()){
@@ -77,7 +77,7 @@ public class FileHandler{
          lineScan.useDelimiter(", "); // .next() now looks for a ', ' rather than a space
          
          Guest newGuest = new Guest(lineScan.next(), lineScan.next(), lineScan.next(), lineScan.next(), lineScan.nextInt());
-         guestList.add(newGuest);
+         guests.add(newGuest);
       }
    }
 

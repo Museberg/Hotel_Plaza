@@ -20,7 +20,7 @@ public class Room{
       return this.beds;
    }
 
-   public boolean getInternet(){
+   public boolean getInternetAccess(){
       return this.internetAccess;
    }
 
@@ -149,7 +149,7 @@ public class Room{
       ArrayList<Room> validRooms = new ArrayList<Room>();
       for(Room room : rooms){ // Looping through each room
          if(room.getBeds() >= beds){
-            if(room.getInternet() == internetAccess){
+            if(room.getInternetAccess() == internetAccess){
                if(room.getPrice() <= price){ // If all are true, room is valid
                   validRooms.add(room);
                }

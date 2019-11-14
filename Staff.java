@@ -63,7 +63,7 @@ public class Staff{
       int phoneNumber = InputHelper.getPhoneNumber();
       
       System.out.printf("What's the salary of the new staff member?%n");
-      int salary = InputHelper.getSalary();
+      double salary = InputHelper.getDoubleFromUser();
       
       Staff newStaff = new Staff(title, firstName, lastName, phoneNumber, salary);
       
@@ -78,30 +78,35 @@ public class Staff{
 
       System.out.printf("What do you want to edit?%n");
 
-      System.out.printf("%d - Staff title (%s)", 1, title);
-      System.out.printf("%d - Staff first name (%s)", 2, firstName);
-      System.out.printf("%d - Staff last name (%s)", 3, lastName);
-      System.out.printf("%d - Staff phone number (%d)", 4, phoneNumber);
-      System.out.printf("%d - Staff salary (%d)", 5, salary);
-      System.out.printf("%d - Return to main menu", 0);
+      System.out.printf("%d - Staff title (%s)%n", 1, title);
+      System.out.printf("%d - Staff first name (%s)%n", 2, firstName);
+      System.out.printf("%d - Staff last name (%s)%n", 3, lastName);
+      System.out.printf("%d - Staff phone number (%d)%n", 4, phoneNumber);
+      System.out.printf("%d - Staff salary (%.2f)%n", 5, salary);
+      System.out.printf("%d - Return to main menu%n", 0);
 
       int option = InputHelper.getOptionFromUser(0, 5);
 
       switch(option){
          case 1: // Edit staff title
+            System.out.println("What do you want to change the staff member's title to?");
             this.title = scan.nextLine();
             break;
          case 2: // Edit staff first name
+            System.out.println("What do you want to change the staff member's first name to?");
             this.firstName = scan.nextLine();
             break;
-         case 4: // Edit staff last name
+         case 3: // Edit staff last name
+            System.out.println("What do you want to change the staff member's last name to?");
             this.lastName = scan.nextLine();
             break;
-         case 5: // Edit staff phone number
+         case 4: // Edit staff phone number
+            System.out.println("What do you want to change the staff member's phone number to?");
             this.phoneNumber = InputHelper.getPhoneNumber();
             break;
-         case 6: // Edit salary
-            this.salary = InputHelper.getSalary();
+         case 5: // Edit salary
+            System.out.println("What do you want to change the staff member's salary to?");
+            this.salary = InputHelper.getDoubleFromUser();
             break;
          case 0:
             System.out.printf("Returning to main menu%n");

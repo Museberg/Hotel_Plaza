@@ -21,8 +21,8 @@ public class DateHelper{
       return Period.between(startDate, endDate).getDays();
    }
    
-   public static LocalDate parseDate(String date){
-      return LocalDate.parse(date, formatter);
+   public static LocalDate parseDate(String dateStr){
+      return LocalDate.parse(dateStr, formatter);
    }
    
    // Returns the date as dd/MM yyyy
