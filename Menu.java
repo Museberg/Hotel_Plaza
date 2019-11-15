@@ -40,7 +40,7 @@ public class Menu{
             staffMenu(staff); // Submenu with more options
             break;
          default:
-            System.out.println("Saving progress and exiting program");
+            System.out.println("Saving progress and exiting program...");
             break;
       }  
    }

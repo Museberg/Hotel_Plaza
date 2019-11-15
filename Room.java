@@ -115,6 +115,7 @@ public class Room{
 
       switch(option){
          case 1: // Edit room ID
+            System.out.printf("What should the new room ID be?%n");
             this.roomID = InputHelper.getIntFromUser();
             while(String.valueOf(roomID).length() != 3){
                System.out.printf("The number %d is not 3 digits long. Please try again.%n", roomID);
@@ -124,8 +125,9 @@ public class Room{
             break;
 
          case 2: // Edit number of beds
+            System.out.printf("How many beds should the room have now?%n");
             this.beds = InputHelper.getIntFromUser();
-            System.out.printf("The amount of beds for the room has been updated to%d%n", beds);
+            System.out.printf("The amount of beds for the room has been updated to %d%n", beds);
             break;
 
          case 3: // Edit internet access
@@ -140,6 +142,7 @@ public class Room{
             break;
 
          case 4: // Edit price per night
+            System.out.printf("What should the new price be?%n");
             this.pricePerNight = InputHelper.getDoubleFromUser();
             System.out.printf("The price per night has been updated to %d%n", this.pricePerNight);
       }
@@ -148,10 +151,10 @@ public class Room{
    public static ArrayList<Room> getValidRooms(ArrayList<Room> rooms, int beds, boolean internetAccess, double price){
       ArrayList<Room> validRooms = new ArrayList<Room>();
       for(Room room : rooms){ // Looping through each room
-         if(room.getBeds() >= beds){
-            if(room.getInternetAccess() == internetAccess){
-               if(room.getPrice() <= price){ // If all are true, room is valid
-                  validRooms.add(room);
+         if(room.getBeds() >= beds){ // Checking if room have enough beds for guest
+            if(!internetAccess || room.getInternetAccess()){ // Even if customer doesn't want internet, the room can still have it
+               if(room.getPrice() <= price){ // If price per night is at or less than requested
+                  validRooms.add(room); // If all are true, room is valid and added to return list
                }
             }
          }
