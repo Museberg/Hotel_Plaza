@@ -13,6 +13,10 @@ public class PlazaHotel{
 
       FileHandler.loadAllFiles(guests, rooms, staff, bookings);
 
+      // while(!login()){
+      //    System.out.printf("Username or password incorrect. Please try again%n");
+      // }
+
       System.out.println("Loading files...");
       showLoadingBar();
 
@@ -28,9 +32,10 @@ public class PlazaHotel{
 
    private static void showLoadingBar(){
       for(int i = 1; i <= 20; i++){
+         Random rand = new Random();
          try
-         {
-             Thread.sleep(75);
+         {  
+             Thread.sleep(rand.nextInt(250) + 20); // Number between 20-170
          }
          catch(InterruptedException ex)
          {
@@ -39,6 +44,19 @@ public class PlazaHotel{
          System.out.print("\r|" + "=".repeat(i) + " ".repeat(20-i) + "|");
       }
       System.out.println("");
+
+   }
+
+   private static boolean login(){
+      Scanner scan = new Scanner(System.in);
+
+      System.out.printf("Please enter in a username:%n");
+      String userName = scan.nextLine();
+
+      System.out.printf("Please enter in a password:%n");
+      String password = scan.nextLine();
+
+      return (userName.equals("username") && password.equals("password"));
 
    }
    

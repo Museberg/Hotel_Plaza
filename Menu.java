@@ -13,6 +13,7 @@ public class Menu{
          System.out.println("");
       }
       
+      printLine();
       System.out.println("Please select the action you want to perform.");
       System.out.println("Type in the number followed by a press of the enter key.");
       
@@ -21,6 +22,7 @@ public class Menu{
       System.out.printf("%d Manage guests%n", 3);
       System.out.printf("%d Manage staff members%n", 4);
       System.out.printf("%d Exit and save%n", 5);
+      printLine();
       
       return InputHelper.getOptionFromUser(1, 5);
    }
@@ -37,7 +39,7 @@ public class Menu{
             guestMenu(guests); // Submenu with more options
             break;
          case 4: // Staff
-            staffMenu(staff); // Submenu with more options
+            staffMenu(staff); // Submenu with more options            
             break;
          default:
             System.out.println("Saving progress and exiting program...");
@@ -48,6 +50,8 @@ public class Menu{
    // All actions on bookings are handeled (called from) here
    private static void bookingsMenu(ArrayList<Room> rooms, ArrayList<Guest> guests, ArrayList<Booking> bookings) throws ParseException{
       Scanner scanInput = new Scanner(System.in);
+
+      printLine();
       System.out.println("Bookings selected. What do you want to do?");
       
       System.out.printf("%d to show a list of all bookings - can also show booking information%n", 1);
@@ -57,6 +61,7 @@ public class Menu{
       System.out.printf("%d print bill for a booking%n", 5);
       System.out.printf("%d add days to booking%n", 6);
       System.out.printf("%d return to main menu%n", 0);
+      printLine();
       
       int option = InputHelper.getOptionFromUser(0, 6);
       switch(option){
@@ -88,7 +93,9 @@ public class Menu{
             System.out.println("What booking do you want to edit?%n");
             Booking.showList(bookings); // Showing user list of bookings to select from
             option = InputHelper.getOptionFromUser(1, bookings.size()) - 1;
+            printLine();
             bookings.get(option).edit(guests, rooms);
+            printLine();
             break;
 
          case 4: // Delete booking
@@ -116,7 +123,9 @@ public class Menu{
                "\nPrice per night: " + room.getPrice() +
                "\nTotal due:       " + booking.getPrice(room);
 
+            printLine();
             System.out.printf("%s%n", bill);
+            printLine();
             break;
 
          case 6: // Add days to booking
@@ -139,6 +148,7 @@ public class Menu{
    
    private static void roomMenu(ArrayList<Room> rooms){
       Scanner scanInput = new Scanner(System.in);
+      printLine();
       System.out.println("Bookings selected. What do you want to do?");
       
       System.out.printf("%d to show a list of all rooms - can also show room information%n", 1);
@@ -146,6 +156,7 @@ public class Menu{
       System.out.printf("%d to edit a room%n", 3);
       System.out.printf("%d to delete a room. This action is permanent%n", 4);
       System.out.printf("%d return to main menu%n", 0);
+      printLine();
       
       int option = InputHelper.getOptionFromUser(0, 4);
 
@@ -176,7 +187,9 @@ public class Menu{
             System.out.printf("What room do you want to edit?%n");
             Room.showList(rooms);
             option = InputHelper.getOptionFromUser(1, rooms.size()) - 1;
+            printLine();
             rooms.get(option).edit();
+            printLine();
             break;
 
          case 4: // Delete room from system
@@ -194,6 +207,7 @@ public class Menu{
    
    private static void guestMenu(ArrayList<Guest> guests){
       Scanner scan = new Scanner(System.in);
+      printLine();
       System.out.println("Guest selected. What do you want to do?");
       
       System.out.printf("%d to show a list of all guests - can also show guest information%n", 1);
@@ -201,6 +215,7 @@ public class Menu{
       System.out.printf("%d to edit a guest%n", 3);
       System.out.printf("%d to delete a guest. This action is permanent%n", 4);
       System.out.printf("%d to return to main menu%n", 0);
+      printLine();
       
       int option = InputHelper.getOptionFromUser(0, 4);
 
@@ -227,7 +242,9 @@ public class Menu{
             System.out.printf("What guest do you want to edit?%n");
             Guest.showList(guests);
             option = InputHelper.getOptionFromUser(1, guests.size()) - 1;
+            printLine();
             guests.get(option).edit();
+            printLine();
             break;
 
          case 4: // Delete a guest
@@ -242,6 +259,7 @@ public class Menu{
    
    private static void staffMenu(ArrayList<Staff> staff) throws ParseException{
       Scanner scan = new Scanner(System.in);
+      printLine();
       System.out.println("Staff selected. What do you want to do?");
       
       System.out.printf("%d to show a list of all staff - can also show staff information%n", 1);
@@ -249,6 +267,7 @@ public class Menu{
       System.out.printf("%d to edit a staff member%n", 3);
       System.out.printf("%d to delete a staff member. This action is permanent%n", 4);
       System.out.printf("%d to return to main menu%n", 0);
+      printLine();
       
       int option = InputHelper.getOptionFromUser(0, 4);
       
@@ -271,7 +290,9 @@ public class Menu{
             System.out.println("What staff do you want to edit?%n");
             Staff.showList(staff); // Showing user list of bookings to select from
             option = InputHelper.getOptionFromUser(1, staff.size()) - 1;
+            printLine();
             staff.get(option).edit();
+            printLine();
             break;
 
          case 4: // Delete staff member
@@ -282,5 +303,11 @@ public class Menu{
             System.out.printf("%s has been removed%n", name);
             break;
       }
+   }
+
+   public static void printLine(){
+      String lines = "-".repeat(70);
+      System.out.printf(lines + "%n");
+
    }
 }
