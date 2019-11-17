@@ -3,7 +3,7 @@ import java.io.*;
 import java.text.*;
 import java.time.*;
 
-public class PlazaHotel{
+public class HotelPlaza{
    public static void main(String[] args) throws ParseException, FileNotFoundException{
    
       ArrayList<Room> rooms = new ArrayList<Room>();
