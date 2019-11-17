@@ -305,7 +305,7 @@ public class Menu{
       }
    }
 
-   public static void printLine(){
+   private static void printLine(){
       String lines = "-".repeat(70);
       System.out.printf(lines + "%n");
 
