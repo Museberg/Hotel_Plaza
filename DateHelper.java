@@ -6,9 +6,10 @@ import java.time.format.*;
 
 public class DateHelper{
 
-   private static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM yyyy");
+   private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM yyyy");
 
-   private static boolean isValid(String dateStr) {
+   // Returns true if date can be parsed
+   private static boolean isValid(String dateStr){
         try {
             LocalDate retDate = LocalDate.parse(dateStr, formatter);
         } catch (DateTimeParseException e) {
@@ -25,7 +26,7 @@ public class DateHelper{
       return LocalDate.parse(dateStr, formatter);
    }
    
-   // Returns the date as dd/MM yyyy
+   // Returns the date as dd/mm yyyy - e.g. 28/05 2019
    public static String dateToString(LocalDate date){
       return date.format(formatter);
    }
@@ -33,7 +34,7 @@ public class DateHelper{
    // Asks the user to input a date. Only returns once date in correct format is given
    public static LocalDate getValidDateFromUser(){
       Scanner scan = new Scanner(System.in);
-      String date = scan.nextLine();
+      String date = scan.nextLine(); // Getting input from user
       
       boolean validDate = isValid(date);
       

@@ -5,7 +5,7 @@ public class InputHelper{
    // Returns a integer between minInt..maxInt
    public static int getOptionFromUser(int minInt, int maxInt){
       Scanner scan = new Scanner(System.in);
-      int number;
+      int retNumber;
       boolean isNotValid = false;
       
       do{
@@ -17,11 +17,11 @@ public class InputHelper{
             scan.next();
          }
          // hasNextInt() true, reading number from console
-         number = scan.nextInt();
-         isNotValid = number < minInt || number > maxInt;
+         retNumber = scan.nextInt();
+         isNotValid = retNumber < minInt || retNumber > maxInt;
       }while(isNotValid);
       
-      return number;
+      return retNumber;
    }
 
    public static int getPhoneNumber(){
@@ -39,9 +39,7 @@ public class InputHelper{
          System.out.printf("The input '%s' is not a number. Please try again.%n", scanInput.nextLine());
          continue;
       }
-      int retVal = scanInput.nextInt();
-      scanInput.nextLine(); // Eating leftover newline
-      return retVal;
+      return scanInput.nextInt();
    }
    
    public static double getDoubleFromUser(){

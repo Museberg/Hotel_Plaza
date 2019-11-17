@@ -14,7 +14,7 @@ public class HotelPlaza{
       FileHandler.loadAllFiles(guests, rooms, staff, bookings);
 
       System.out.println("Loading files...");
-      showLoadingBar();
+      //showLoadingBar();
 
       int option = -1;
       while(option != 5){
@@ -23,7 +23,7 @@ public class HotelPlaza{
       }
       FileHandler.saveAllFiles(guests, rooms, staff, bookings);
       
-      showLoadingBar();
+      //showLoadingBar();
    }
 
    private static void showLoadingBar(){
@@ -31,7 +31,7 @@ public class HotelPlaza{
          Random rand = new Random();
          try
          {  
-             Thread.sleep(rand.nextInt(250) + 20); // Number between 20-170
+             Thread.sleep(rand.nextInt(250) + 20); // Number between 20-270
          }
          catch(InterruptedException ex)
          {

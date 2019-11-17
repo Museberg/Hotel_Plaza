@@ -88,10 +88,10 @@ public class Booking{
 
       System.out.printf("Which guest is booking the room?%n");
       Guest.showList(guests);
-      System.out.printf("%d to create a new guest%n", 0); // TODO: Implement
-      int option = InputHelper.getOptionFromUser(0, guests.size() + 1) - 1;
+      System.out.printf("%d to create a new guest%n", 0);
+      int option = InputHelper.getOptionFromUser(0, guests.size()) - 1;
       String guestID;
-      if(option != guests.size()){ // If we are NOT creating a new guest
+      if(option != 0){ // If we are NOT creating a new guest
          guestID = guests.get(option).getGuestID();
       }
       else{ // Creating a new guest and taking ID of that
@@ -183,11 +183,11 @@ public class Booking{
             break;
 
          case 3: // Room ID
-            System.out.printf("New room ID must correspond with an existing room. Please select room%n");
+            System.out.printf("New room ID must correspond with an existing room. Please select a room%n");
             Room.showList(rooms);
-            System.out.printf("%d to create a new room and use room ID of that%n", rooms.size() + 1);
-            option = InputHelper.getOptionFromUser(1, rooms.size() + 1) - 1;
-            if(option != rooms.size()){ // If we are NOT creating a new room
+            System.out.printf("%d to create a new room and use room ID of that%n", 0);
+            option = InputHelper.getOptionFromUser(0, rooms.size()) - 1;
+            if(option != 0){ // If we are NOT creating a new room
                this.roomID = rooms.get(option).getRoomID();
                System.out.printf("The room ID has been updated to %d%n", this.roomID);
                break;
@@ -202,9 +202,9 @@ public class Booking{
          case 4: // Guest ID   
             System.out.printf("Guest ID (%s) can only be changed to a guest ID currently assigned to a customer. Please select a customer.%n", this.roomID);
             Guest.showList(guests);
-            System.out.printf("%d to create a new guest and use guest ID of that", guests.size() + 1);
-            option = InputHelper.getOptionFromUser(1, guests.size() + 1) - 1;
-            if(option != guests.size()){ // If we are NOT creating a new room
+            System.out.printf("%d to create a new guest and use guest ID of that", 0);
+            option = InputHelper.getOptionFromUser(0, guests.size()) - 1;
+            if(option != 0){ // If we are NOT creating a new room
                this.guestID = guests.get(option).getGuestID();
                System.out.printf("The guest ID has been updated to %s%n", this.guestID);
                break;

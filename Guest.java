@@ -2,7 +2,7 @@ import java.util.*;
 import java.io.*;
 
 public class Guest{
-   private String guestID;
+   private final String guestID;
    private String firstName;
    private String lastName;
    private String address;

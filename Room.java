@@ -39,10 +39,10 @@ public class Room{
    }
 
    public String getRoomInSaveFormat(){
-      return String.format("%d, %d, %b, %.2f",
-         this.roomID,
-         this.beds,
-         this.internetAccess,
+      return String.format("%d, %d, %b, %.2f", 
+         this.roomID, 
+         this.beds, 
+         this.internetAccess, 
          this.pricePerNight);
    }
    

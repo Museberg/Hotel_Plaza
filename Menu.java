@@ -41,7 +41,7 @@ public class Menu{
          case 4: // Staff
             staffMenu(staff); // Submenu with more options            
             break;
-         default:
+         default: // Case 5
             System.out.println("Saving progress and exiting program...");
             break;
       }  
@@ -81,7 +81,7 @@ public class Menu{
 
          case 2: // Create booking
             Booking newBooking = Booking.letUserCreateBooking(rooms, guests);
-            if(newBooking != null) // If no suibtle room found, method returns null
+            if(newBooking != null) // If no suitable room found, method returns null
                bookings.add(newBooking);
             break;
 
@@ -133,7 +133,7 @@ public class Menu{
             Booking.showList(bookings); // Showing user list of bookings to select from
             option = InputHelper.getOptionFromUser(1, bookings.size()) - 1;
             Booking bk = bookings.get(option);
-            String oldEndDate = DateHelper.dateToString(bk.getEndDate());
+            String oldEndDate = DateHelper.dateToString(bk.getEndDate()); // Getting old end date to print
 
             System.out.printf("How many days do you want to expand the booking with?%n");
             int addDays = InputHelper.getIntFromUser();
