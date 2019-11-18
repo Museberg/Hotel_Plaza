@@ -8,7 +8,6 @@ public class Guest{
    private String address;
    private int phoneNumber;
    
-   // To write region code on phone number, use '00' instead of '+'
    public Guest(String guestID, String firstName, String lastName, String address, int phoneNumber){
       this.guestID = guestID;
       this.firstName = firstName;
@@ -26,6 +25,7 @@ public class Guest{
          "\nPhone number: " + this.phoneNumber;
    }
 
+   // Used for saving the object to a text file
    public String getGuestInSaveFormat(){
       return String.format("%s, %s, %s, %s, %d",
          this.guestID,

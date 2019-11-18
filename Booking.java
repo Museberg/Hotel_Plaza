@@ -23,6 +23,7 @@ public class Booking{
       this.guestID = guestID;
    }
    
+   // Used for saving the object to a text file
    public String getBookingInSaveFormat(){
       return String.format("%s, %s, %d, %s",
          DateHelper.dateToString(startDate),
@@ -50,11 +51,13 @@ public class Booking{
       }
    }
    
+   // Sets the start date and updates the duration (in days)
    public void setStartDate(LocalDate newStartDate){
       this.startDate = newStartDate;
       this.numberOfDays = DateHelper.getDays(this.startDate, this.endDate);
    }
 
+   // Sets the end date and updates the duration (in days)
    public void setEndDate(LocalDate newEndDate){
       this.endDate = newEndDate;
       this.numberOfDays = DateHelper.getDays(this.startDate, this.endDate);
@@ -187,12 +190,12 @@ public class Booking{
             Room.showList(rooms);
             System.out.printf("%d to create a new room and use room ID of that%n", 0);
             option = InputHelper.getOptionFromUser(0, rooms.size()) - 1;
-            if(option != 0){ // If we are NOT creating a new room
+            if(option != -1){ // If we are NOT creating a new room
                this.roomID = rooms.get(option).getRoomID();
                System.out.printf("The room ID has been updated to %d%n", this.roomID);
                break;
             }
-
+            // Letting user create new room
             Room newRoom = Room.letUserCreateRoom(false);
             rooms.add(newRoom);
             this.roomID = newRoom.getRoomID();
@@ -202,14 +205,14 @@ public class Booking{
          case 4: // Guest ID   
             System.out.printf("Guest ID (%s) can only be changed to a guest ID currently assigned to a customer. Please select a customer.%n", this.roomID);
             Guest.showList(guests);
-            System.out.printf("%d to create a new guest and use guest ID of that", 0);
+            System.out.printf("%d to create a new guest and use guest ID of that%n", 0);
             option = InputHelper.getOptionFromUser(0, guests.size()) - 1;
-            if(option != 0){ // If we are NOT creating a new room
+            if(option != -1){ // If we are NOT creating a new room
                this.guestID = guests.get(option).getGuestID();
                System.out.printf("The guest ID has been updated to %s%n", this.guestID);
                break;
             }
-
+            // Letting user create new room
             Guest newGuest = Guest.letUserCreateGuest(false, guests);
             guests.add(newGuest);
             this.guestID = newGuest.getGuestID();
@@ -222,6 +225,7 @@ public class Booking{
          }
    }
 
+   // Returns the price of a booking
    public double getPrice(Room room){
       return room.getPrice() * this.numberOfDays;
    }

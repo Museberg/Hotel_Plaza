@@ -38,6 +38,7 @@ public class Room{
 
    }
 
+   // Used for saving the object to a text file
    public String getRoomInSaveFormat(){
       return String.format("%d, %d, %b, %.2f", 
          this.roomID, 
@@ -58,6 +59,7 @@ public class Room{
       return String.format("Room %s on floor %d", this.roomID, this.getFloor());
    }
 
+   // Returns the room matching the provided roomID
    public static Room getRoomFromID(int roomID, ArrayList<Room> rooms){
       for(Room room : rooms){
          if(room.roomID == roomID){
@@ -148,6 +150,7 @@ public class Room{
       }
    }
 
+   // Returns an arraylist of rooms matching the criteria provided
    public static ArrayList<Room> getValidRooms(ArrayList<Room> rooms, int beds, boolean internetAccess, double price){
       ArrayList<Room> validRooms = new ArrayList<Room>();
       for(Room room : rooms){ // Looping through each room

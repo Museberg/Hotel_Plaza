@@ -38,6 +38,7 @@ public class Staff{
 
    }
 
+   // Used for saving the object to a text file
    public String getStaffInSaveFormat(){
       return String.format("%s, %s, %s, %d, %.2f",
          this.title,
