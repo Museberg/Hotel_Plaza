@@ -76,8 +76,6 @@ public class Room{
    }
 
    public static Room letUserCreateRoom(boolean printRoom){
-      Scanner scan = new Scanner(System.in);
-
       System.out.printf("What's the ID of the new room?%n");
       int roomID = InputHelper.getIntFromUser();
       
@@ -104,7 +102,6 @@ public class Room{
    }
 
    public void edit(){
-      Scanner scan = new Scanner(System.in);
       System.out.printf("What do you want to edit?%n");
 
       System.out.printf("%d - Room ID (%d)%n", 1, this.roomID);

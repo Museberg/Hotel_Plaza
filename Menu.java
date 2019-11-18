@@ -47,8 +47,6 @@ public class Menu{
    
    // All actions on bookings are handeled (called from) here
    private static void bookingsMenu(ArrayList<Room> rooms, ArrayList<Guest> guests, ArrayList<Booking> bookings) throws ParseException{
-      Scanner scanInput = new Scanner(System.in);
-
       printLine();
       System.out.println("Bookings selected. What do you want to do?");
       
@@ -145,7 +143,6 @@ public class Menu{
    }
    
    private static void roomMenu(ArrayList<Room> rooms){
-      Scanner scanInput = new Scanner(System.in);
       printLine();
       System.out.println("Bookings selected. What do you want to do?");
       
@@ -204,7 +201,6 @@ public class Menu{
    }
    
    private static void guestMenu(ArrayList<Guest> guests){
-      Scanner scan = new Scanner(System.in);
       printLine();
       System.out.println("Guest selected. What do you want to do?");
       
@@ -256,7 +252,6 @@ public class Menu{
    }
    
    private static void staffMenu(ArrayList<Staff> staff) throws ParseException{
-      Scanner scan = new Scanner(System.in);
       printLine();
       System.out.println("Staff selected. What do you want to do?");
       

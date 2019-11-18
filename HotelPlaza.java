@@ -14,7 +14,7 @@ public class HotelPlaza{
       FileHandler.loadAllFiles(guests, rooms, staff, bookings);
 
       System.out.println("Loading files...");
-      //showLoadingBar();
+      showLoadingBar();
 
       int option = -1;
       while(option != 5){
@@ -24,7 +24,7 @@ public class HotelPlaza{
       // Program has been exited by the user
       FileHandler.saveAllFiles(guests, rooms, staff, bookings);
       
-      //showLoadingBar();
+      showLoadingBar();
    }
 
    private static void showLoadingBar(){

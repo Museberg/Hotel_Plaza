@@ -87,8 +87,6 @@ public class Booking{
    }
    
    public static Booking letUserCreateBooking(ArrayList<Room> rooms, ArrayList<Guest> guests) throws ParseException{
-      Scanner scan = new Scanner(System.in);
-
       System.out.printf("Which guest is booking the room?%n");
       Guest.showList(guests);
       System.out.printf("%d to create a new guest%n", 0);
@@ -141,7 +139,6 @@ public class Booking{
    
    // Lets the user edit a value in a booking
    public void edit(ArrayList<Guest> guests, ArrayList<Room> rooms){
-      Scanner scanInput = new Scanner(System.in);
       System.out.println("What do you want to edit?\n");
       
       System.out.printf("%d - Start Date (%s)%n", 1, DateHelper.dateToString(startDate));
