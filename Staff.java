@@ -9,6 +9,7 @@ public class Staff{
    private int phoneNumber;
    private double salary;
    
+   // Constructor
    public Staff(String title, String firstName, String lastName, int phoneNumber, double salary){
       this.title = title;
       this.firstName = firstName;

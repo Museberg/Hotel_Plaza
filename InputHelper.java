@@ -2,6 +2,7 @@ import java.util.*;
 import java.io.*;
 
 public class InputHelper{
+
    // Returns a integer between minInt..maxInt
    public static int getOptionFromUser(int minInt, int maxInt){
       Scanner scan = new Scanner(System.in);
@@ -29,12 +30,14 @@ public class InputHelper{
       
       while(!scan.hasNextInt()){
          System.out.printf("The entered phone number %s is not a number! Please try again%n", scan.nextLine());
+         continue;
       }
       return scan.nextInt();
    }
 
    public static int getIntFromUser(){
       Scanner scanInput = new Scanner(System.in);
+      
       while(!scanInput.hasNextInt()){
          System.out.printf("The input '%s' is not a number. Please try again.%n", scanInput.nextLine());
          continue;
@@ -44,11 +47,11 @@ public class InputHelper{
    
    public static double getDoubleFromUser(){
       Scanner scanInput = new Scanner(System.in);
+
       while(!scanInput.hasNextDouble()){
          System.out.printf("The input '%s' is not a number. Please try again.%n", scanInput.nextLine());
          continue;
       }
-      double retVal = scanInput.nextDouble();
-      return retVal;
+      return scanInput.nextDouble();
    }
 }

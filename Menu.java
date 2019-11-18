@@ -6,7 +6,7 @@ public class Menu{
 
    // Returns the option chosen by the user
    public static int showMenu(int option){
-      // If menu has not been show before. Makes it look nicer
+      // If menu has been shown before. Makes it look nicer
       if(option != -1){
          System.out.println("");
       }

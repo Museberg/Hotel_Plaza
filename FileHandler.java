@@ -71,7 +71,7 @@ public class FileHandler{
 
    private static void readGuestFromDisk(ArrayList<Guest> guests) throws FileNotFoundException{
       Scanner scan = new Scanner(new File("Guests.txt"));
-      // While scanner can find a new line (new room)
+      // While scanner can find a new line (new guests)
       while(scan.hasNextLine()){
          Scanner lineScan = new Scanner(scan.nextLine());
          lineScan.useDelimiter(", "); // .next() now looks for a ', ' rather than a space

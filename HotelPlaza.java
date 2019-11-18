@@ -21,6 +21,7 @@ public class HotelPlaza{
          option = Menu.showMenu(option);
          Menu.menuActions(option, rooms, guests, staff, bookings);
       }
+      // Program has been exited by the user
       FileHandler.saveAllFiles(guests, rooms, staff, bookings);
       
       //showLoadingBar();

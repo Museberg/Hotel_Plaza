@@ -14,7 +14,7 @@ public class Booking{
    
    private static String dateFormat = "dd/mm yyyy";
    
-   // Dates should be written as dd/MM yyyy
+   // Constuctor - Dates should be written as dd/MM yyyy
    public Booking(LocalDate startDate, LocalDate endDate, int roomID, String guestID) throws ParseException{
       this.startDate = startDate;
       this.endDate = endDate;

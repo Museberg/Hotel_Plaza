@@ -8,6 +8,7 @@ public class Guest{
    private String address;
    private int phoneNumber;
    
+   // Constructor
    public Guest(String guestID, String firstName, String lastName, String address, int phoneNumber){
       this.guestID = guestID;
       this.firstName = firstName;
