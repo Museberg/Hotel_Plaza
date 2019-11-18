@@ -1,2 +1,4 @@
-Director, Povl, Henningsen, 32849024, 35000,00
-Director, Rasmus, Falk-Jensen, 31953678, 25000,00
+Director, Rasmus, Falk-Jensen, 84384320, 350000,00
+Receptionist, Maria, Sørensen, 4832904, 250000,00
+Cleaning Lady, Henning, Jensen, 8540385, 300000,00
+Accountant, Per, Christiansen, 849023, 300000,00

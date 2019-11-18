@@ -92,7 +92,7 @@ public class Booking{
       System.out.printf("%d to create a new guest%n", 0);
       int option = InputHelper.getOptionFromUser(0, guests.size()) - 1;
       String guestID;
-      if(option != 0){ // If we are NOT creating a new guest
+      if(option != -1){ // If we are NOT creating a new guest
          guestID = guests.get(option).getGuestID();
       }
       else{ // Creating a new guest and taking ID of that
@@ -133,7 +133,7 @@ public class Booking{
       option = InputHelper.getOptionFromUser(1, validRooms.size()) - 1;
 
       Booking newBooking = new Booking(startDate, endDate, rooms.get(option).getRoomID(), guestID);   
-      System.out.printf("Following booking has now been created:%n%s%n", newBooking.toString(guests.get(option)));
+      System.out.printf("Following booking has now been created:%n%s%n", newBooking);
       return newBooking;
    }
    

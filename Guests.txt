@@ -1,2 +1,8 @@
-Guest 2, Søren, Hansen, Some address, 8490234
-Guest 4, Mikkel, Trolle, Lygten 37, 849328402
+Guest 1, Rasmus, Falk-Jensen, Address 1, 84903284
+Guest 2, Mikkel, Trolle, Address 2, 8934048
+Guest 3, Cay, Henriksen, Address 3, 48029394
+Guest 4, William, Lorentzen, Address Street, 84902384
+Guest 5, Anders, Berner, Address Gade 2, 84903248
+Guest 6, Michael, Kieler, Address Vej 5, 48329048
+Guest 7, Sebastian, Nygaard, Address Street Gade 3, 842304892
+Guest 8, Magnus, Orstrand, Christoffersen, 84930482
